@@ -1,7 +1,7 @@
 const Telegraf = require('telegraf'),
  	  LocalSession = require('telegraf-session-local'),
 	  fs = require('fs'),
-	  bot = new Telegraf(process.env.TOKEN),
+	  bot = new Telegraf('784954893:AAF0xfGRdEHZ2cNuUsb5IYcA7M_6uGoLkm8'),
 	  users = JSON.parse(fs.readFileSync("users.json", "utf-8"))
 	 
 var	id = 0
