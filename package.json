@@ -1,0 +1,27 @@
+{
+  "name": "telegram_bot",
+  "version": "1.0.0",
+  "dependencies": {
+    "querystring": "^0.2.0",
+    "telegraf": "^3.32.0",
+    "telegraf-session-local": "^1.0.2"
+  },
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "engines": {
+    "node": "10.15.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kinderwond/botTelegram.git"
+  },
+  "author": "kinderwond",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kinderwond/botTelegram/issues"
+  },
+  "homepage": "https://github.com/kinderwond/botTelegram#readme"
+}
