@@ -4,6 +4,7 @@
 			"id": "656991059:656991059",
 			"data": {
 				"tomatos": 50,
+				"town": "Kyiv",
 				"auth": true,
 				"level": "Beginner"
 			}
