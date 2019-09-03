@@ -1,14 +1,9 @@
-const Telegraf = require("telegraf"),
-  WeatherDescription = {
-    "scattered clouds": "рассеяные облака",
-    "broken clouds": "облачно",
-    "overcast clouds": "пасмурно"
-  };
-
+const Telegraf = require("telegraf")
 let tomatoTimer;
 
 module.exports = bot => {
-  bot.hears("/томат", (ctx, next) => {
+  bot.action("runTomat", (ctx, next) => {
+    ctx.answerCallbackQuery("Go go go!")
     ctx.reply("Мы уведомим вас через 25 минут");
 
     tomatoTimer = setTimeout(() => {
@@ -18,7 +13,8 @@ module.exports = bot => {
       else ctx.reply("Томат окончен! Возьмите отдых на 5 минут");
     }, 1500);
   });
-  bot.hears("/статистика", (ctx, next) => {
+  bot.action("statistic", (ctx, next) => {
+    ctx.answerCallbackQuery("Сейчас глянем -_-")
     ctx.reply(
       "Ваша статистика:\n" +
         "Количество выполненых томатов = " +
@@ -27,11 +23,13 @@ module.exports = bot => {
         ctx.session.level
     );
   });
-  bot.hears("/отмена томата", (ctx, tomatoTimer) => {
+  bot.action("canselTomat", (ctx, tomatoTimer) => {
+    ctx.answerCallbackQuery("На ладно :(")
     clearTimeout(tomatoTimer);
     ctx.reply("Томат отменен");
   });
-  bot.hears("погода сегодня", async ctx => {
+  bot.action("hourlyWeather", async ctx => {
+    ctx.answerCallbackQuery("Ожидайте ;-)")
     const WEATHER_DATA = require("./getWeather")(ctx.session.town);
     weatherData = await WEATHER_DATA;
 
@@ -41,7 +39,8 @@ module.exports = bot => {
     for (let i in response) 
       await ctx.reply(response[i]);
   });
-  bot.hears("погода на 5 дней", async ctx => {
+  bot.action("weather5Days", async ctx => {
+    ctx.answerCallbackQuery("Магия... (:")
     const WEATHER_DATA = require("./getWeather")(ctx.session.town);
     weatherData = await WEATHER_DATA;
 
@@ -51,4 +50,43 @@ module.exports = bot => {
     for (let i in response) 
       await ctx.reply(response[i]);
   });
-};
+
+  const Menu = Telegraf.Extra
+    .markdown()
+    .markup((m) => m.inlineKeyboard([
+      m.callbackButton('Продуктивность', 'tomatos'),
+      m.callbackButton('Погода', 'weather')
+  ]))
+  const Weather = Telegraf.Extra
+    .markdown()
+    .markup((m) => m.inlineKeyboard([
+          m.callbackButton('Прогноз на сегодня', 'hourlyWeather'),
+          m.callbackButton('Прогноз на 5 дней', 'weather5Days'),
+          m.callbackButton('Назад', 'back')
+          ])
+    .resize()) 
+  const Tomatos = Telegraf.Extra
+    .markdown()
+    .markup((m) => m.inlineKeyboard([
+      m.callbackButton('Запуск томата', 'runTomat'),
+      m.callbackButton('Отмена томата', 'canselTomat'),
+      m.callbackButton('Статистика', 'statistic'),
+      m.callbackButton('Назад', 'back')
+     ])
+    .resize())  
+
+  bot.hears('menu',  ctx => ctx.reply('Ваше меню', Menu) )
+  bot.action('weather', ctx => {
+    ctx.answerCallbackQuery()
+    ctx.editMessageText('Прогноз погоды', Weather) 
+  })
+  bot.action('tomatos', ctx => {
+    ctx.answerCallbackQuery()
+    ctx.editMessageText('Метод томатов', Tomatos) 
+  })
+  bot.action('back',   ctx => {
+    ctx.answerCallbackQuery()
+    ctx.editMessageText('Ваше меню',Menu) 
+  })
+  bot.on('message', ctx => ctx.reply("Ваше меню", Menu))
+}

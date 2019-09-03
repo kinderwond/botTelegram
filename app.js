@@ -6,7 +6,8 @@ const Telegraf = require("telegraf"),
   users = JSON.parse(fs.readFileSync("./db/usersId.json", "utf-8"));
 
 let id = 0;
-https.createServer()
+let server = http.createServer()
+
 const property = "data",
   localSession = new LocalSession({
     database: "./db/db.json",
@@ -20,29 +21,31 @@ const property = "data",
 
 bot.use(localSession.middleware());
 bot.use(async (ctx, next) => {
-  if (ctx.session.tomatos > 50) ctx.session.level = "Lover tomato";
+  if (ctx.session.tomatos > 50) 
+    ctx.session.level = "Lover tomato";
 
   if (ctx.session.auth == true) {
-    let x = require("./controllers/usage.js")(bot);
+    let include = require("./controllers/usage.js")(bot, Telegraf);
     return next();
   } else
     return ctx.reply(
-      "Добро пожаловать! Извините, но вы не зарегестрированы в системе! По поводу регистрации обракщатся к @kinderwond " +
-        ctx.from.id
+      "Добро пожаловать! Извините, но вы не зарегестрированы в системе! По поводу регистрации обракщатся к @kinderwond"
     );
 });
 
-bot.start((ctx, next) => {
+bot.hears('/start', (ctx, next) => {
   id = ctx.from.id;
-  for (let key in users) {
-    if (users[key].id == id) {
+  for (let key in users.usersID) {
+    if (users.usersID[key] === id) {
       ctx.session.auth = true;
+      ctx.reply('Авторизация прошла успешно')
       return ctx.session.auth;
     }
+    else ctx.session.auth = false;
   }
-  ctx.session.auth = false;
+  
   return ctx.session.auth;
 });
 
 bot.launch();
-http.listen(5000)
+server.listen(5000)
