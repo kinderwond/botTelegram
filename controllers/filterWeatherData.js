@@ -24,7 +24,7 @@ const filter__Hourly__Weather = (weather_data) => {
     for (let key in weather_data) {
         promiseDay = parseInt(weather_data[key]['date'][8] + weather_data[key]['date'][9]);
 
-        if (curent.day != (+promiseDay))   {
+        if (curent.day != (parseInt(promiseDay)) )   {
           todayWeather[key] = weather_data[key];
           todayWeather[key]['temp'] = parseInt(Math.round(todayWeather[key]['temp'] - 273.15) );
           break;

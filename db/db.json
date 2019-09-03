@@ -4,10 +4,19 @@
 			"id": "656991059:656991059",
 			"data": {
 				"tomatos": 52,
-				"town": "Kyiv",
+				"town": "Zaporizhzhya",
 				"auth": true,
 				"level": "Lover tomato"
 			}
+		},
+		{
+			"id": "487820763:487820763",
+			"data": {
+				"tomatos": 0,
+				"town": "Zaporizhzhya",
+				"auth": true,
+				"level": "Beginner"
+			}	
 		}
 	]
 }

@@ -11,7 +11,7 @@ module.exports = bot => {
       if (ctx.session.tomatos % 4 == 0)
         ctx.reply("Томат окончен! возьмите перерыв на 20-30 минут");
       else ctx.reply("Томат окончен! Возьмите отдых на 5 минут");
-    }, 1500);
+    }, 1500000);
   });
   bot.action("statistic", (ctx, next) => {
     ctx.answerCallbackQuery("Сейчас глянем -_-")
