@@ -6,7 +6,8 @@ const Telegraf = require("telegraf"),
   users = JSON.parse(fs.readFileSync("./db/usersId.json", "utf-8"));
 
 let id = 0;
-let server = http.createServer()
+
+const server = http.createServer()
 
 const property = "data",
   localSession = new LocalSession({
@@ -48,4 +49,6 @@ bot.hears('/start', (ctx, next) => {
 });
 
 bot.launch();
-server.listen(5000)
+
+server.listen(process.env.PORT)
+
