@@ -3,7 +3,7 @@ const LocalSession = require("./sessionConfig")
 const fs = require("fs")
 const http = require('http')
 
-const bot = new Telegraf("784954893:AAF2QlRDpRGWdUFETZuNE_aSO8CsML9_pFs")
+const bot = new Telegraf("784954893:AAEx5xAH8TZLwGeC9f-0ldMq9siHKS6D4rQ")
 const users = JSON.parse(fs.readFileSync("./db/usersId.json", "utf-8"))
 const server = http.createServer()
 

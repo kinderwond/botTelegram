@@ -23,11 +23,9 @@ const FiveDays_Weather = weather => {
     if (description.has(key['description']))
       key['description'] = description.get(key['description'])
 
-    return  "Время : "     +     key['date']  +
-            "\nТемпература : " + key['temp']  +
-            "\nОписание : "    + key['description'];
+    return key
   })
   return sendArray
 }
 
-module.exports.weekend = FiveDays_Weather
+module.exports = FiveDays_Weather
