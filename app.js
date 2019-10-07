@@ -1,41 +1,29 @@
-const Telegraf = require("telegraf"),
-  LocalSession = require("telegraf-session-local"),
-  fs = require("fs"),
-  http = require('http'),
-  bot = new Telegraf("784954893:AAF0xfGRdEHZ2cNuUsb5IYcA7M_6uGoLkm8"),
-  users = JSON.parse(fs.readFileSync("./db/usersId.json", "utf-8"));
+const Telegraf = require("telegraf")
+const LocalSession = require("./sessionConfig")
+const fs = require("fs")
+const http = require('http')
 
-let id = 0;
-
+const bot = new Telegraf("784954893:AAF2QlRDpRGWdUFETZuNE_aSO8CsML9_pFs")
+const users = JSON.parse(fs.readFileSync("./db/usersId.json", "utf-8"))
 const server = http.createServer()
 
-const property = "data",
-  localSession = new LocalSession({
-    database: "./db/db.json",
-    property: "session",
-    storage: LocalSession.storageFileAsync,
-    format: {
-      serialize: obj => JSON.stringify(obj, null, "\t"),
-      deserialize: str => JSON.parse(str)
-    }
-  });
-
-bot.use(localSession.middleware());
+bot.use(LocalSession.middleware());
 bot.use(async (ctx, next) => {
   if (ctx.session.tomatos > 50) 
     ctx.session.level = "Lover tomato";
-
   if (ctx.session.auth == true) {
-    let include = require("./controllers/usage.js")(bot, Telegraf);
+    require("./handlers/menu.js")(bot)
+    require("./handlers/tomatoHandler.js")(bot)
+    require("./handlers/weatherHandler.js")(bot)
+    require("./handlers/scheduleHandlerr.js")(bot)
     return next();
   } else
-    return ctx.reply(
-      "Добро пожаловать! Извините, но вы не зарегестрированы в системе! По поводу регистрации обракщатся к @kinderwond"
-    );
+    return ctx.reply("Добро пожаловать! Извините, но вы не зарегестрированы в системе!" + 
+                     "По поводу регистрации обракщатся к @kinderwond");
 });
 
-bot.hears('/start', (ctx, next) => {
-  id = ctx.from.id;
+bot.hears('/start', ctx => {
+  let id = ctx.from.id;
   for (let key in users.usersID) {
     if (users.usersID[key] === id) {
       ctx.session.auth = true;
@@ -44,11 +32,10 @@ bot.hears('/start', (ctx, next) => {
     }
     else ctx.session.auth = false;
   }
-  
+
   return ctx.session.auth;
 });
 
 bot.launch();
-
 server.listen(process.env.PORT)
 

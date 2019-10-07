@@ -6,7 +6,11 @@
 				"tomatos": 52,
 				"town": "Zaporizhzhya",
 				"auth": true,
-				"level": "Lover tomato"
+				"level": "Lover tomato",
+				"wednesday": "12:00 - Биология;\n",
+				"thursday": "10:00 - Математика;\n12:00 - Биология;\n",
+				"tuesday": "10:00 - Математика;\n12:00 - Биология;\n",
+				"__scenes": {}
 			}
 		},
 		{
@@ -16,7 +20,7 @@
 				"town": "Zaporizhzhya",
 				"auth": true,
 				"level": "Beginner"
-			}	
+			}
 		}
 	]
 }
