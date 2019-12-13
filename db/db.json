@@ -5,12 +5,12 @@
 			"data": {
 				"tomatos": 52,
 				"town": "Zaporizhzhya",
-				"auth": true,
 				"level": "Lover tomato",
 				"wednesday": "12:00 - Биология;\n",
 				"thursday": "10:00 - Математика;\n12:00 - Биология;\n",
 				"tuesday": "10:00 - Математика;\n12:00 - Биология;\n",
-				"__scenes": {}
+				"__scenes": {},
+				"auth": true
 			}
 		},
 		{
@@ -20,6 +20,24 @@
 				"town": "Zaporizhzhya",
 				"auth": true,
 				"level": "Beginner"
+			}
+		},
+		{
+			"id": " 364207274: 364207274",
+			"data": {
+				"town": "Zaporizhzhya"
+			}
+		},
+		{
+			"id": " 419852878: 419852878",
+			"data": {
+				"town": "Zaporizhzhya"
+			}
+		},
+		{
+			"id": "419852878:419852878",
+			"data": {
+				"auth": true
 			}
 		}
 	]
