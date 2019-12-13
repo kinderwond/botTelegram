@@ -29,7 +29,6 @@ bot.hears('/start', (ctx) => {
   console.log(id)
   for (let key in db.sessions) {
     sessionID =  +(db.sessions[key].id.substring(0,9))
-    console.log(sessionID)
     
     if (sessionID === id) {
       ctx.session.auth = true;
